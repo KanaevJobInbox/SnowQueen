@@ -1,0 +1,41 @@
+﻿<Window x:Class="FirstClient.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FirstClient.View"
+        mc:Ignorable="d"
+        Title="FirstClient" Height="254" Width="315">
+    <Window.Resources>
+        <Brush x:Key="Color_Name">#FFB1F9EF</Brush>
+        <Brush x:Key="Color_Value">#FFF9F6DB</Brush>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Margin="1" BorderThickness="2" BorderBrush="Black"  Background="White" VerticalAlignment="Center">
+            <WrapPanel>
+                <StackPanel Grid.Column="0" HorizontalAlignment="Center" Orientation="Horizontal" Width="Auto" >
+                    <Label Content="Имя " Background="{StaticResource Color_Name}" Width="80"/>
+                    <TextBox Text="{Binding Product.Name}" Background="{StaticResource Color_Value}" MinWidth="100" />
+                </StackPanel>
+                <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal" Width="Auto" >
+                    <Label Content="Стоимость " Background="{StaticResource Color_Name}" Width="80" />
+                    <TextBox Text="{Binding Product.Cost}" Background="{StaticResource Color_Value}" MinWidth="100"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" HorizontalAlignment="Center" Orientation="Horizontal" Width="Auto" >
+                    <Label Content="Количество " Background="{StaticResource Color_Name}" Width="80"/>
+                    <TextBox Text="{Binding Product.Count}" Background="{StaticResource Color_Value}" MinWidth="100"/>
+                </StackPanel>
+            </WrapPanel>
+        </Border>
+
+        <Button Grid.Row="1" Content="Добавить в SQL" Command="{Binding AddProductCommand}" CommandParameter="1" Height="23" Width="95" HorizontalAlignment="Right" Margin="2,2,200,2"/>
+        <Button Grid.Row="1" Content="Добавить в Xml" Command="{Binding AddProductCommand}" CommandParameter="2" Height="23" Width="95" HorizontalAlignment="Right" Margin="2,2,100,2"/>
+        <Button Grid.Row="1" Content="Добавить везде" Command="{Binding AddProductCommand}" CommandParameter="3" Height="23" Width="95" HorizontalAlignment="Right" Margin="2"/>
+        
+    </Grid>
+</Window>
