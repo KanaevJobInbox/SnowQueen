@@ -8,28 +8,9 @@
         Title="MainWindow" Height="350" Width="550">
 
     <Window.Resources>
-
-        <Style x:Key="SimpleListBoxItem" TargetType="ListBoxItem">
-
-            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="ListBoxItem">
-                        <Border
-           Name="Border"
-           Padding="2"
-           SnapsToDevicePixels="true">
-                            <ContentPresenter />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsSelected" Value="true">
-                                <Setter TargetName="Border" Property="Background" Value="Red"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        <Brush x:Key="Color_All">LightGreen</Brush>
+        <Brush x:Key="Color_SQLite">LightBlue</Brush>
+        <Brush x:Key="Color_XML">LightGray</Brush>
     </Window.Resources>
     
     <Grid>
@@ -42,24 +23,40 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <ListView Margin="10" ItemsSource="{Binding ProductCollection}">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <WrapPanel>
-                        <TextBlock Text="Name: " />
-                        <TextBlock Text="{Binding Name}" FontWeight="Bold" />
-                        <TextBlock Text="Cost: " />
-                        <TextBlock Text="{Binding Cost}" FontWeight="Bold" />
-                        <TextBlock Text="Count: " />
-                        <TextBlock Text="{Binding Count}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
-                    </WrapPanel>
-                </DataTemplate>
-                
-               
-            </ListView.ItemTemplate>
-            
-        </ListView>
 
+        <ListView Margin="10" ItemsSource="{Binding ProductCollection}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Background" Value="LightGreen" />
+                    <Setter Property="Template" >
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <WrapPanel Margin="5" Name="ControlContainer">
+                                    <TextBlock Text="Name: " />
+                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+                                    <TextBlock Text="Cost: " />
+                                    <TextBlock Text="{Binding Cost}" FontWeight="Bold" />
+                                    <TextBlock Text="Count: " />
+                                    <TextBlock Text="{Binding Count}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
+                                </WrapPanel>
+                                <ControlTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding TypeProvaider}" Value="ALL">
+                                        <Setter TargetName="ControlContainer" Property="Background" Value="{StaticResource Color_All}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding TypeProvaider}" Value="SQLite">
+                                        <Setter  TargetName="ControlContainer" Property="Background" Value="{StaticResource Color_SQLite}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding TypeProvaider}" Value="XML">
+                                        <Setter  TargetName="ControlContainer" Property="Background" Value="{StaticResource Color_XML}" />
+                                    </DataTrigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+      
         <Grid Grid.Column="1" Width="200" Background="Beige">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -72,14 +69,13 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <Ellipse Fill="LightGreen" HorizontalAlignment="Right" Height="47" Margin="5" Stroke="Black" VerticalAlignment="Center" Width="47"/>
+            <Ellipse Fill="{StaticResource Color_All}" HorizontalAlignment="Right" Height="47" Margin="5" Stroke="Black" VerticalAlignment="Center" Width="47"/>
             <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="5" TextWrapping="Wrap" Text="Общие данные" VerticalAlignment="Center"/>
 
-
-            <Ellipse Grid.Row="1" Fill="LightBlue" HorizontalAlignment="Right" Height="47" Margin="5" Stroke="Black" VerticalAlignment="Center" Width="47"/>
+            <Ellipse Grid.Row="1" Fill="{StaticResource Color_SQLite}" HorizontalAlignment="Right" Height="47" Margin="5" Stroke="Black" VerticalAlignment="Center" Width="47"/>
             <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="5" TextWrapping="Wrap" Text="Данные в SQL" VerticalAlignment="Center"/>
 
-            <Ellipse Grid.Row="2" Fill="LightGray" HorizontalAlignment="Right" Height="47" Margin="5" Stroke="Black" VerticalAlignment="Center" Width="47"/>
+            <Ellipse Grid.Row="2" Fill="{StaticResource Color_XML}" HorizontalAlignment="Right" Height="47" Margin="5" Stroke="Black" VerticalAlignment="Center" Width="47"/>
             <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="5" TextWrapping="Wrap" Text="Данные в TXT" VerticalAlignment="Center"/>
             
         </Grid>
@@ -89,10 +85,6 @@
         <Button Grid.Row="1" Grid.ColumnSpan="2" Content="Полное объединение"  Command="{Binding JoinDataStorageCommand}" CommandParameter="3" HorizontalAlignment="Right" VerticalAlignment="Top" Width="130" Margin=" 2,2,100,2"/>
         <Button Grid.Row="1" Grid.ColumnSpan="2" Content="Объединить TXT c SQL"  Command="{Binding JoinDataStorageCommand}" CommandParameter="1" HorizontalAlignment="Right" VerticalAlignment="Top" Width="130" Margin="2,2,250,2"/>
         <Button Grid.Row="1" Grid.ColumnSpan="2" Content="Объединить SQL c TXT"  Command="{Binding JoinDataStorageCommand}" CommandParameter="2" HorizontalAlignment="Right" VerticalAlignment="Top" Width="130" Margin="2,2,400,2"/>
-
-
-
-
 
 
     </Grid>
