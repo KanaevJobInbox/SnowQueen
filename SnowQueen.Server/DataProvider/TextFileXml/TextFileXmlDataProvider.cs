@@ -25,14 +25,13 @@ namespace SnowQueen.Server.DataProvider.TextFileXml
             {
                 var actualProducts = GetProducts().JoinObjectTypeProduct(products);
 
-                var xmlTextFile = new XmlTextFile();
-    
                 var xmlProducts = new List<XmlProduct>();
-                foreach(var product in products)
+                foreach(var actualProduct in actualProducts)
                 {
-                    xmlProducts.Add(new XmlProduct() { Id = product.Id, Name = product.Name, Cost = product.Cost, Count = product.Count });
+                    xmlProducts.Add(new XmlProduct() { Id = actualProduct.Id, Name = actualProduct.Name, Cost = actualProduct.Cost, Count = actualProduct.Count });
                 }
 
+                var xmlTextFile = new XmlTextFile();
                 xmlTextFile.Products = xmlProducts.ToArray();
 
                 try

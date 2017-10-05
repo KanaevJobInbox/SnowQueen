@@ -77,7 +77,8 @@ namespace Client.ViewModel
 
         private void AddProductCommand_Execute(string parameter)
         {
-           _operations.AddProduct(new ProductViewModel[] { Product}, converterCommandParameterToEnum(parameter));
+            Product.Id = Guid.NewGuid();
+            _operations.AddProduct(new ProductViewModel[] { Product}, converterCommandParameterToEnum(parameter));
         }
 
         private bool AddProductCommand_CanExecute(string parameter)
@@ -102,7 +103,7 @@ namespace Client.ViewModel
 
         private void JoinDataStorageCommand_Execute(string parameter)
         {            
-                _operations.AddProduct(ProductCollection , converterCommandParameterToEnum(parameter));
+            _operations.AddProduct(ProductCollection , converterCommandParameterToEnum(parameter));
         }
 
 

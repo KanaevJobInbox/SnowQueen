@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extension\ProductViewModelExtension.cs" />
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="ProductOperationsViewModel.cs" />
     <Compile Include="ProductViewModel.cs" />

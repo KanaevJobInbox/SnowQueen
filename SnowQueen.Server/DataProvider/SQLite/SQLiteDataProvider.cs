@@ -15,20 +15,22 @@ namespace SnowQueen.Server.DataProvider.SQLite
         {
             var context = new SnowQueenDBContext();
 
+            var currentProduct = context.Product.ToList();
+
             foreach (var product in products)
             {
-                var efProduct = new Product()
-                {
-                    Id = product.Id.ToByteArray(),
-                    Name = product.Name,
-                    Cost = product.Cost,
-                    Count = product.Count
-                };
+                var productId = product.Id.ToByteArray();
 
-                //if (context.Product.Find(efProduct) == null
-                if (!context.Product.ToList().Any(o=> o.Id == efProduct.Id))
-                    context.Product.Add(efProduct);
-            }
+                if (!currentProduct.Any(o=> DeepEqualArray(o.Id, productId)))
+                    context.Product.Add(new Product()
+                                   {
+                                       Id = productId,
+                                       Name = product.Name,
+                                       Cost = product.Cost,
+                                       Count = product.Count
+                                   }
+                            );
+        }
 
             context.SaveChanges();
         }
@@ -49,6 +51,11 @@ namespace SnowQueen.Server.DataProvider.SQLite
                 };
             }
 
+        }
+
+        private bool DeepEqualArray<T>(IEnumerable<T> array1, IEnumerable<T> array2)
+        {
+          return  array1.All(t => array2.Contains(t));
         }
     }
 }

@@ -11,7 +11,7 @@ namespace SnowQueen.Core.ObjectTypes
 
         public ObjectTypeProduct(IProduct product)
         {
-            Id = Guid.NewGuid();
+            Id = product.Id;
             Name = product.Name;
             Cost = product.Cost;
             Count = product.Count;

@@ -37,7 +37,7 @@
                                     <TextBlock Text="Cost: " />
                                     <TextBlock Text="{Binding Cost}" FontWeight="Bold" />
                                     <TextBlock Text="Count: " />
-                                    <TextBlock Text="{Binding Count}" TextDecorations="Underline" Foreground="Blue" Cursor="Hand" />
+                                    <TextBlock Text="{Binding Count}" Foreground="Blue" />
                                 </WrapPanel>
                                 <ControlTemplate.Triggers>
                                     <DataTrigger Binding="{Binding TypeProvaider}" Value="ALL">

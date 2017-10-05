@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Client.Model;
 using SnowQueen.Core.ObjectTypes;
+using Client.ViewModel.Extension;
 
 namespace Client.ViewModel
 {
@@ -17,15 +18,9 @@ namespace Client.ViewModel
             operations = Operations;
         }
 
-        public void AddProduct(IEnumerable<IProduct> product, ObjectTypeEnumDataProvaider typeProvaider)
+        public void AddProduct(IEnumerable<ProductViewModel> product, ObjectTypeEnumDataProvaider typeProvaider)
         {
-            List<ObjectTypeProduct> otProduct = new List<ObjectTypeProduct>();
-            foreach (var item in product)
-            {
-                otProduct.Add(new ObjectTypeProduct(item));
-            }
-
-            operations.AddProducts(otProduct, typeProvaider);
+            operations.AddProducts(product.ConvertToCollectionObjectTypeProduct(), typeProvaider);
         }
 
         public IEnumerable<IProduct> GetProduct(ObjectTypeEnumDataProvaider typeProvaider)

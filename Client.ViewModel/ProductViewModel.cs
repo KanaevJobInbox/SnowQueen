@@ -1,4 +1,5 @@
-﻿using Client.Model;
+﻿using System;
+using Client.Model;
 using SnowQueen.Core.MVVMtools;
 using SnowQueen.Core.ObjectTypes;
 
@@ -11,11 +12,14 @@ namespace Client.ViewModel
 
         public ProductViewModel(IProduct product)
         {
-           _product = new ObjectTypeProduct();
-           _product.Name = product.Name;
-           _product.Count = product.Count;
-           _product.Cost = product.Cost;
-           _product.TypeProvaider = product.TypeProvaider;
+            _product = new ObjectTypeProduct(product);
+        }
+
+
+        public Guid Id
+        {
+            get { return _product.Id; }
+            set { _product.Id = value; }
         }
 
         public string Name
@@ -39,5 +43,11 @@ namespace Client.ViewModel
             get { return _product.TypeProvaider; }
             set { _product.TypeProvaider = value; OnPropertyChanged("TypeProvaider"); }
         }
+
+        public ObjectTypeProduct ConvertToObjectType()
+        {
+            return _product;
+        }
+
     }
 }

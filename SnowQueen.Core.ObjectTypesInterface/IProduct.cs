@@ -8,9 +8,10 @@ namespace SnowQueen.Core.ObjectTypes
 {
     public interface IProduct
     {
-       string Name { get;}
-       int Cost { get;}
-       int Count { get;}
-       ObjectTypeEnumDataProvaider TypeProvaider { get; }
+        Guid Id { get; }
+        string Name { get; }
+        int Cost { get; }
+        int Count { get; }
+        ObjectTypeEnumDataProvaider TypeProvaider { get; }
     }
 }
